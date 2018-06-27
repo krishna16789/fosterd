@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>My First HTML5 Page - tic tac toe with angularjs</title>
+    <style>
+        .cell {
+            background-color: #FF0000
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="basic_angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="ticTacToeController">
+<p>HTML5 is fun!</p>
+<button ng-click="resetGame()">Start Game</button>
+<table border="1" align="center">
+    <tr ng-repeat="row in board">
+        <td ng-click="handleClick($index,0)">{{row[0]}}</td>
+        <td ng-click="handleClick($index,1)">{{row[1]}}</td>
+        <td ng-click="handleClick($index,2)">{{row[2]}}</td>
+    </tr>
+</table>
+</body>
+</html>

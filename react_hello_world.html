@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>React hello world basic</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    // Deprecated way
+    /*var Hello = React.createClass({
+        render: function () {
+            return (<h1>Hello World</h1>);
+        }
+    });
+    ReactDOM.render(<Hello/>, document.getElementById("root"));*/
+
+    // React the normal way
+    /*class Hello extends React.Component {
+        constructor() {
+            super();
+        }
+
+        render() {
+            return <div> Hello World Again!! </div>
+        }
+    }*/
+
+    //ReactDOM.render(<Hello/>, document.getElementById("root"));
+
+    class HelloWithProps extends React.Component {
+
+        constructor() {
+            super();
+        }
+
+        static defaultProps = {name: "Krishna"};
+
+        render() {
+            return <div> Hello {this.props.name} !!! </div>
+        }
+    }
+
+    //ReactDOM.render(<HelloWithProps name="FosterD"/>, document.getElementById("root"));
+    //ReactDOM.render(<HelloWithProps/>, document.getElementById("root"));
+
+    // React state
+    class HelloWithState extends React.Component {
+
+        constructor(props) {
+            super(props);
+            let name = this.props.name;
+            this.state = {
+                message: name
+            };
+            this.updateMessage = this.updateMessage.bind(this);
+        }
+
+        updateMessage() {
+            let name = this.props.name;
+            this.setState({
+                message: name + ", the great"
+            });
+        }
+
+        render() {
+            return <div>
+                <h1>Hello {this.state.message}!</h1>
+                <button onClick={this.updateMessage}>Click me!</button>
+            </div>
+        }
+    }
+
+    //ReactDOM.render(<HelloWithState name="Alexander"/>, document.getElementById("root"));
+    ReactDOM.render(<div>{Math.random() > 0.5 ? <HelloWithProps/> :
+        <HelloWithState name="Ecox"/>}</div>, document.getElementById("root"));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>React hello world basic</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.3.1/redux.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/react-redux.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    class HelloWithProps extends React.Component {
+
+        constructor(props) {
+            super(props);
+        }
+
+        static defaultProps = {name: "Krishna"};
+
+        render() {
+            return <div>
+                <div className={"hello"}> Hello {this.props.name} !!!</div>
+                <button onClick={this.props.updateMessage}>Click Me !!</button>
+            </div>
+        }
+    }
+
+    var createStore = Redux.createStore;
+    var Provider = ReactRedux.Provider;
+    var connect = ReactRedux.connect;
+
+    var initialState = {name: "Krishna"};
+
+    var reducer = function (state, action) {
+        if (state === undefined) {
+            return initialState;
+        }
+        var newState = state;
+        switch (action.type) {
+            case 'update_name':
+                newState = Object.assign({}, state, {name: "FosterD participants"});
+                break;
+        }
+        return newState;
+    }
+
+    var store = createStore(reducer, initialState);
+
+    var HelloWithPropsState = function (state) {
+        return state;
+    }
+
+    var HelloWithPropsDispatch = function (dispatch) {
+        return {
+            updateMessage: function () {
+                dispatch({
+                    type: 'update_name',
+                })
+            }
+        }
+    }
+
+    HelloWithProps = connect(
+        HelloWithPropsState,
+        HelloWithPropsDispatch
+    )(HelloWithProps)
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <HelloWithProps/>
+        </Provider>,
+        document.getElementById('root')
+    );
+
+</script>
+</body>
+</html>
